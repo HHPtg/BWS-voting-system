@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}Home{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="navbar-nav">
+                    <li class="navbar-brand" href="#">BWS Student Countil 2022</li>
+                    <li class="nav-item" id="candidate1"><a class="nav-link" href="/vote/head-boy">Head Boy</a></li>
+                    <li class="nav-item" id="candidate3"><a class="nav-link" href="/vote/head-girl">Head Girl</a></li>
+                    <li class="nav-item" id="candidate3"><a class="nav-link" href="/vote/vice-head-boy">Vice Head Boy</a></li>
+                    <li class="nav-item" id="candidate3"><a class="nav-link" href="/vote/vice-head-girl">Vice Head Girl</a></li>
+                    <li class="nav-item" id="candidate3"><a class="nav-link" href="/vote/sports-captain">Sports Captain</a></li>
+                    <li class="nav-item" id="candidate3"><a class="nav-link" href="/vote/vice-sports-captain">Vice Sports Captain</a></li>
+                    <li class="nav-item" id="candidate3"><a class="nav-link" href="/vote/cultural-head">Cultural Head</a></li>
+                    <li class="nav-item" id="candidate3"><a class="nav-link" href="/vote/vice-cultural-head">Vice Cultural Head</a></li>
+                    <li class="nav-item dropdown" id="candidate2">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">House Captain</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/vote/house-captain-spartans">Spartans</a></li>
+                            <li><a class="dropdown-item" href="/vote/house-captain-knights">Knights</a></li>
+                            <li><a class="dropdown-item" href="/vote/house-captain-samurais">Samurais</a></li>
+                            <li><a class="dropdown-item" href="/vote/house-captain-trojans">Trojans</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown" id="candidate2">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Vice House Captain</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/vote/vice-house-captain-spartans">Spartans</a></li>
+                            <li><a class="dropdown-item" href="/vote/vice-house-captain-knights">Knights</a></li>
+                            <li><a class="dropdown-item" href="/vote/vice-house-captain-samurais">Samurais</a></li>
+                            <li><a class="dropdown-item" href="/vote/vice-house-captain-trojans">Trojans</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category, message in messages %} {% if category ==
+    'error' %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    {% else %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    {% endif %} {% endfor %} {% endif %} {% endwith %}
+
+    {% block main %}
+
+    {% endblock %}
+</body>
+</html>
