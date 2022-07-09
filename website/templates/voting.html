@@ -1,31 +1,33 @@
-{% extends "base.html" %} {% block title %} {{ post }} {% endblock %}
-{% block main %}
-    <div class="container-sm">
-        <form method="POST">
-            <h3 align="center">Vote For One</h3>
-            <div class="form-floating mb-3 mt-3">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="name"
-                  name="name"
-                  placeholder="Full Name"
-                  required
-                />
-                <label for="firstName">Full Name</label>
-            </div>
+{% extends 'base.html' %}
+{% block content %}
+    <section>
+      <h1 class="text-center mt-6">Head Boy</h1>
+      <form class="flex" method="POST">
+          <div>
+        <div class="card" id="vote1">
+          <div class="card-body">
+            <img src={{ url_for('static', filename='img/boy.jpg') }} />
 
-            <div class="form-floating mb-3 mt-3">
-                 <select class="form-select" id="vote" aria-label="Select Your Vote" name="vote_choice">
-                    <option selected>Select Your Vote</option>
-                    <option value="1">Candidate 1</option>
-                    <option value="2">Candidate 2</option>
-                    <option value="3">Candidate 3</option>
-                  </select>
-                  <label for="floatingSelect">Select Your Vote</label>
-            </div>
+            <h2>John Doe</h2>
+            <p>Head Boy</p>
+          </div>
+        </div>
+            <input type="checkbox" name="vote1">
+          </div>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
+          <div>
+        <div class="card" id="vote2">
+          <div class="card-body">
+            <img src={{ url_for('static', filename='img/boy.jpg') }}/>
+
+            <h2>Sam Smith</h2>
+            <p>Head Boy</p>
+          </div>
+        </div>
+            <input type="checkbox" name="vote2">
+          </div>
+      </form>
+
+      <button class="btn" type="submit">Continue <i class="fas fa-arrow-right-long"></i></button>
+    </section>
 {% endblock %}

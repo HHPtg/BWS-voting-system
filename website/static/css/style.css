@@ -1,0 +1,169 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: auto;
+  font-size: 16px;
+  font-family: sans-serif;
+}
+
+nav {
+  height: 100px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f6f6f6;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+.hero-text {
+  text-align: center;
+  width: 100%;
+  font-size: 2rem;
+}
+
+.hero-img {
+  width: auto;
+  position: absolute;
+  top: 0;
+}
+
+.nav-content {
+  width: 100%;
+  display: flex;
+  flex: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav .hero-img img {
+  height: 100px;
+  width: 250px;
+}
+
+.fas {
+  margin-left: 0.5rem;
+}
+
+.flex {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: space-around;
+}
+
+.mt-6 {
+  margin-top: 6rem;
+}
+
+.text-center {
+  text-align: center;
+
+  font-size: 2.4rem;
+}
+
+.btn {
+  border: none;
+  margin-block: 0.5rem;
+  text-decoration: none;
+  text-align: center;
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  background-color: #333;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.btn.block {
+  display: block;
+  width: 100%;
+}
+
+.btn:hover {
+  cursor: pointer;
+  background-color: #222;
+}
+
+.form label {
+  font-size: 1.3rem;
+}
+
+.form input {
+  padding: 0.4rem 1rem;
+  width: 100%;
+  font-size: 1.7rem;
+  border: none;
+  border-radius: 5px;
+  margin-block: 1rem;
+  transition: box-shadow 100ms ease-in-out;
+}
+
+input:hover {
+  box-shadow: 0 2px 1px rgba(0, 0, 0, 0.5);
+}
+
+input:focus {
+  outline: none;
+}
+
+.input-group label {
+  display: block;
+  width: 100%;
+}
+
+.container {
+  width: 60%;
+  border: 1px solid grey;
+  padding: 2rem;
+  margin: 1rem;
+  border-radius: 10px;
+  background-color: #f8f8f8;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+.card {
+  padding: 2rem;
+  background-color: #daf1ff;
+  border-radius: 10px;
+}
+
+.card:hover {
+  background-color: #ceebfd;
+  cursor: pointer;
+}
+
+.card-body {
+  text-align: center;
+}
+
+.card-body h2 {
+  background-color: #9bf0ff;
+  border-radius: 10px;
+  margin-bottom: 0.5rem;
+}
+
+.active {
+  background-color: #9fdaff;
+}
+.active:hover {
+  background-color: #9fdaff;
+}
+.footer {
+  text-align: right;
+  font-size: small;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}

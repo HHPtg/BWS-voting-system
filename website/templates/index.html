@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <form class="form" id="nameForm" method="POST">
+            <div class="input-group">
+                <label for="name">Name:</label>
+                <input type="text" name="name" id="name" placeholder="enter your name here" required />
+            </div>
+
+            <button type='submit' class="btn block">
+                Continue <i class="fas fa-arrow-right-long"></i>
+            </button>
+        </form>
+    </div>
+{% endblock %}

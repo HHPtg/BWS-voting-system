@@ -10,19 +10,18 @@ def index():
     return redirect(url_for('views.home'))
 
 
-@views.route('/home')
+@views.route('/home', methods=['GET', 'POST'])
 def home():
-    return render_template('home.html')
-
-
-@views.route('/admin')
-def admin():
-    return render_template('admin.html')
-
-
-@views.route('/vote/<post>', methods=['GET', 'POST'])
-def vote(post):
     if request.method == "POST":
+        return redirect('/voting?name='+request.form.get('name'))
+
+    return render_template('index.html')
+
+
+@views.route('/voting', methods=['GET', 'POST'])
+def vote():
+    if request.method == "POST":
+        name = request.args
         vote_choice = request.form.get('vote_choice')
         name = request.form.get('name')
         new_vote = Vote(name=name, vote_choice=vote_choice)
@@ -31,6 +30,6 @@ def vote(post):
 
         flash('Vote Registered!', category='success')
 
-        return redirect(url_for('views.vote', post=post))
+        return redirect(url_for('views.vote'))
 
     return render_template('voting.html')
