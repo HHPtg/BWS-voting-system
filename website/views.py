@@ -4,6 +4,7 @@ from .models import HeadBoy, HeadGirl, ViceHeadBoy, ViceHeadGirl, SportsCaptain,
     ViceHouseCaptainTrojans, HouseCaptainTrojans, HouseCaptainSamurais, ViceHouseCaptainSamurais, User
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
+from sqlalchemy import inspect
 import json
 
 views = Blueprint('views', __name__)
@@ -27,7 +28,13 @@ POSTS = [
     "vice_house_captain_knights",
 ]
 
-CANDIDATES = {
+CANDIDATES = ["Hanif Hasan Patel", "Aarush Verma", "Diya Mahajan", "Sadhvi Kumar", "Shiven Onsker", "Shlok Rautwar",
+              "Saanvi Trivedi", "Amaira Achwa", "Kyle Daniel", "Siddhant Dey", "Rida Shaikh", "Arjan Singh",
+              "Divisha Bahl", "Salil Mehta", "Ayushi Mishra", "Sameeha Roowalla", "Maanas", "Yahya Akil Sayed",
+              "Rishab Sharma", "Lavaniya Sharma", "Abheek Kapsime", "Dhruv Lagad", "Hussain", "Vivaan Bhaskaran",
+              "Marvellous", "Murtaza", "Jia", "Rida Khan", "Rushda Badgujar", "Zayan Firoz Kassim", "Mira", "Jas"]
+
+CANDIDATES_POSTS = {
     "head_boy": ["Hanif Hasan Patel", "Aarush Verma"],
     "head_girl": ["Diya Mahajan", "Sadhvi Kumar"],
     "vice_head_boy": ["Shiven Onsker", "Shlok Rautwar"],
@@ -45,6 +52,28 @@ CANDIDATES = {
     "vice_house_captain_trojans": ["Rushda Badgujar", "Zayan Firoz Kassim"],
     "vice_house_captain_knights": ["Mira", "Jas"]
 }
+
+
+@views.route('/admin', methods=["GET", "POST"])
+@login_required
+def admin():
+    if not current_user.username == 'adminacc':
+        return redirect(url_for('views.home'))
+
+    keys = CANDIDATES_POSTS.keys()
+
+    data = {}
+
+    for post in keys:
+        d1 = {}
+        for candidate in CANDIDATES_POSTS[post]:
+            result = db.engine.execute(
+                f"SELECT COUNT(*) FROM {post} WHERE vote_choice == '{candidate}'"
+            )
+            d1[candidate] = list(result)[0][0]
+        data[post] = d1
+
+    return render_template('admin.html', data=data, keys=keys)
 
 
 @views.route('/api/logout')
@@ -168,7 +197,7 @@ def vote(post):
             print(POSTS[(POSTS.index(post.replace('-', '_')) + 1)].replace('_', '-'))
             return redirect('/voting/' + POSTS[(POSTS.index(post.replace('-', '_')) + 1)].replace('_', '-') + '?name=' + name)
 
-    data = CANDIDATES[post.replace('-', '_')]
+    data = CANDIDATES_POSTS[post.replace('-', '_')]
 
     post_name = post.replace('-', " ").title()
 
