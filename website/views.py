@@ -1,8 +1,9 @@
 from flask import Blueprint, request, render_template, flash, redirect, url_for
 from .models import HeadBoy, HeadGirl, ViceHeadBoy, ViceHeadGirl, SportsCaptain, ViceSportsCaptain, CulturalHead, \
     ViceCulturalHead, HouseCaptainSpartans, ViceHouseCaptainSpartans, HouseCaptainKnights, ViceHouseCaptainKnights, \
-    ViceHouseCaptainTrojans, HouseCaptainTrojans, HouseCaptainSamurais, ViceHouseCaptainSamurais
+    ViceHouseCaptainTrojans, HouseCaptainTrojans, HouseCaptainSamurais, ViceHouseCaptainSamurais, User
 from . import db
+from flask_login import login_user, login_required, logout_user, current_user
 import json
 
 views = Blueprint('views', __name__)
@@ -30,7 +31,7 @@ CANDIDATES = {
     "head_boy": ["Hanif Hasan Patel", "Aarush Verma"],
     "head_girl": ["Diya Mahajan", "Sadhvi Kumar"],
     "vice_head_boy": ["Shiven Onsker", "Shlok Rautwar"],
-    "vice_head_girl": ["Saanvi Trivedi", "Amaira"],
+    "vice_head_girl": ["Saanvi Trivedi", "Amaira Achwa"],
     "sports_captain": ["Kyle Daniel", "Siddhant Dey"],
     "vice_sports_captain": ["Rida Shaikh", "Arjan Singh"],
     "cultural_head": ["Divisha Bahl", "Salil Mehta"],
@@ -46,12 +47,42 @@ CANDIDATES = {
 }
 
 
+@views.route('/api/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('views.authorize'))
+
+
+@views.route('/authorize', methods=['GET', 'POST'])
+def authorize():
+    if request.method == "POST":
+        username = request.form.get('username')
+        password = request.form.get('password')
+
+        user = User.query.filter_by(username=username).first()
+        if user:
+            if user.password == password:
+                flash("Login Successful", category="success")
+                login_user(user)
+                return redirect(url_for('views.home'))
+            else:
+                flash("Login Failed", category='error')
+
+        else:
+            flash("Account Doesn't Exist", category='error')
+
+    return render_template('auth.html', user=current_user)
+
+
 @views.route('/')
+@login_required
 def index():
     return redirect(url_for('views.home'))
 
 
 @views.route('/home', methods=['GET', 'POST'])
+@login_required
 def home():
     if request.method == "POST":
         return redirect('/voting/' + POSTS[0].replace('_', '-') + '?name=' + request.form.get('name'))
@@ -60,6 +91,7 @@ def home():
 
 
 @views.route('/voting/<post>', methods=['GET', 'POST'])
+@login_required
 def vote(post):
     if request.method == "POST":
         name = request.args.get('name')
@@ -146,5 +178,6 @@ def vote(post):
 
 
 @views.route('/thank-you', methods=["GET"])
+@login_required
 def thankyou():
     return render_template('thankyou.html')
