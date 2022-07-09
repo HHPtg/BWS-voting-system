@@ -1,33 +1,34 @@
 {% extends 'base.html' %}
+
+
 {% block content %}
     <section>
-      <h1 class="text-center mt-6">Head Boy</h1>
-      <form class="flex" method="POST">
-          <div>
-        <div class="card" id="vote1">
-          <div class="card-body">
-            <img src={{ url_for('static', filename='img/boy.jpg') }} />
+      <h1 class="text-center mt-6" style="color: white; margin-bottom: 10px;">{{ post_name }}</h1>
+      <div class="flex">
+          {% for candidate in candidates %}
+              <div class="card" id="vote1">
+                  <div class="card-body">
+                    <img src={{ url_for('static', filename='img/boy.jpg') }} />
 
-            <h2>John Doe</h2>
-            <p>Head Boy</p>
-          </div>
-        </div>
-            <input type="checkbox" name="vote1">
-          </div>
+                    <h2>{{ candidate }}</h2>
+                    <p>{{ post_name }}</p>
+                  </div>
+              </div>
+          {% endfor %}
+      </div>
 
-          <div>
-        <div class="card" id="vote2">
-          <div class="card-body">
-            <img src={{ url_for('static', filename='img/boy.jpg') }}/>
+        <form class="form" method="POST" style="margin-top: 20px;">
+            <div class="input-group">
+                <label for="selectCandidate" style="color: white;">Choose who you want to vote for:</label>
+                <select id="selectCandidate" name="candidate_select">
+                    {% for candidate in candidates %}
+                        <option value='{{ candidate }}'>{{ candidate }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button class="btn block" type="submit">Continue <i class="fas fa-arrow-right-long"></i></button>
+        </form>
 
-            <h2>Sam Smith</h2>
-            <p>Head Boy</p>
-          </div>
-        </div>
-            <input type="checkbox" name="vote2">
-          </div>
-      </form>
 
-      <button class="btn" type="submit">Continue <i class="fas fa-arrow-right-long"></i></button>
     </section>
 {% endblock %}

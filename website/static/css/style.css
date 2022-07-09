@@ -101,7 +101,7 @@ nav .hero-img img {
   font-size: 1.3rem;
 }
 
-.form input {
+.form input, .form select {
   padding: 0.4rem 1rem;
   width: 100%;
   font-size: 1.7rem;
@@ -111,11 +111,11 @@ nav .hero-img img {
   transition: box-shadow 100ms ease-in-out;
 }
 
-input:hover {
+input:hover, select:hover{
   box-shadow: 0 2px 1px rgba(0, 0, 0, 0.5);
 }
 
-input:focus {
+input:focus, select:focus{
   outline: none;
 }
 
@@ -138,11 +138,6 @@ input:focus {
   padding: 2rem;
   background-color: #daf1ff;
   border-radius: 10px;
-}
-
-.card:hover {
-  background-color: #ceebfd;
-  cursor: pointer;
 }
 
 .card-body {

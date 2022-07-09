@@ -16,7 +16,9 @@ def create_app():
 
     app.register_blueprint(views, url_prefix="/")
 
-    from .models import Vote
+    from .models import HeadBoy, HeadGirl, ViceHeadBoy, ViceHeadGirl, SportsCaptain, ViceSportsCaptain, CulturalHead,\
+        ViceCulturalHead, HouseCaptainSpartans, ViceHouseCaptainSpartans, HouseCaptainKnights, ViceHouseCaptainKnights,\
+        ViceHouseCaptainTrojans, HouseCaptainTrojans, HouseCaptainSamurais, ViceHouseCaptainSamurais
     create_database(app)
 
     return app

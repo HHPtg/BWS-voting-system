@@ -1,5 +1,18 @@
 {
-  "data": [
-
-  ]
+  "head_boy": ["Hanif Hasan Patel", "Aarush Verma"],
+  "head_girl": ["Diya Mahajan", "Sadhvi Kumar"],
+  "vice_head_boy": ["Shiven Onsker", "Shlok Rautwar"],
+  "vice_head_girl": ["Saanvi Trivedi", "Amaira"],
+  "sports_captain": ["Kyle Daniel", "Siddhant Dey"],
+  "vice_sports_captain": ["Rida Shaikh", "Arjan Singh"],
+  "cultural_head": ["Divisha Bahl", "Salil Mehta"],
+  "vice_cultural_head": ["Ayushi Mishra", "Sameeha Roowalla"],
+  "house_captain_spartans": ["Maanas", "Yahya Akil Sayed", "Rishab Sharma"],
+  "house_captain_samurais": ["Lavaniya Sharma", "Abheek Kapsime"],
+  "house_captain_trojans": ["Dhruv Lagad", "Hussain"],
+  "house_captain_knights": ["Vivaan Bhaskaran", "Marvellous"],
+  "vice_house_captain_spartans": ["Murtaza", "Jia"],
+  "vice_house_captain_samurai": ["Rida Khan", "Shiven Onsker"],
+  "vice_house_captain_trojans": ["Rushda Badgujar", "Zayan Firoz Kassim"],
+  "vice_house_captain_knights": ["Mira", "Jas"]
 }
