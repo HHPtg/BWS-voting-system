@@ -5,12 +5,12 @@
     <section>
       <h1 class="text-center mt-6" style="color: white; margin-bottom: 10px;">{{ post_name }}</h1>
       <div class="flex">
-          {% for candidate in candidates %}
+          {% for candidaten in length %}
               <div class="card" id="vote1">
                   <div class="card-body">
-                    <img src={{ url_for('static', filename='img/boy.jpg') }} />
+                    <img style="width: 200px;" src={{ imgs[candidaten] }} />
 
-                    <h2>{{ candidate }}</h2>
+                    <h2>{{ candidates[candidaten] }}</h2>
                     <p>{{ post_name }}</p>
                   </div>
               </div>
