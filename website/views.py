@@ -5,30 +5,39 @@ from .models import HeadBoy, HeadGirl, ViceHeadBoy, ViceHeadGirl, SportsCaptain,
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
 from .staticdata import *
+import sqlite3
 
 views = Blueprint('views', __name__)
 
 
-@views.route('/admin', methods=["GET", "POST"])
+@views.route('/admin')
 @login_required
-def admin():
+def adminv():
+    return redirect('/admin/head-boy')
+
+
+@views.route('/admin/<post>', methods=["GET", "POST"])
+@login_required
+def admin(post):
     if not current_user.username == 'adminacc':
         return redirect(url_for('views.home'))
 
+    result2 = list(db.engine.execute(f"SELECT * FROM head_boy"))
     keys = CANDIDATES_POSTS.keys()
 
     data = {}
 
-    for post in keys:
-        d1 = {}
-        for candidate in CANDIDATES_POSTS[post]:
-            result = db.engine.execute(
-                f"SELECT COUNT(*) FROM {post} WHERE vote_choice == '{candidate}'"
-            )
-            d1[candidate] = list(result)[0][0]
-        data[post] = d1
+    for candidate in CANDIDATES_POSTS[post.replace("-", "_")]:
+        result = db.engine.execute(
+            f"SELECT COUNT(*) FROM {post.replace('-', '_')} WHERE vote_choice == '{candidate}'"
+        )
+        data[candidate] = list(result)[0][0]
 
-    return render_template('admin.html', data=data, keys=keys)
+    print(result2)
+    print(data)
+    print(keys)
+
+    return render_template('admin.html', all_votes=list(result2), candidate_scores=data, post_name=post.replace("-", " ").title(), range=range(len(list(result2))))
 
 
 @views.route('/api/logout')
@@ -69,7 +78,7 @@ def index():
 @login_required
 def home():
     if request.method == "POST":
-        return redirect('/voting/' + POSTS[0].replace('_', '-') + '?name=' + request.form.get('name'))
+        return redirect('/voting/' + POSTS[0].replace('_', '-') + '?name=' + request.form.get('name') + '&grade=' + request.form.get('grade_select'))
 
     return render_template('index.html')
 
@@ -79,69 +88,70 @@ def home():
 def vote(post):
     if request.method == "POST":
         name = request.args.get('name')
+        grade = request.args.get('grade')
 
         if post == "head-boy":
-            new_vote = HeadBoy(name=name, vote_choice=request.form.get('candidate_select'))
+            new_vote = HeadBoy(name=name, vote_choice=request.form.get('candidate_select'), grade=grade)
             db.session.add(new_vote)
             db.session.commit()
         if post == "head-girl":
-            new_vote = HeadGirl(name=name, vote_choice=request.form.get('candidate_select'))
+            new_vote = HeadGirl(name=name, vote_choice=request.form.get('candidate_select'), grade=grade)
             db.session.add(new_vote)
             db.session.commit()
         if post == "vice-head-boy":
-            new_vote = ViceHeadBoy(name=name, vote_choice=request.form.get('candidate_select'))
+            new_vote = ViceHeadBoy(name=name, vote_choice=request.form.get('candidate_select'), grade=grade)
             db.session.add(new_vote)
             db.session.commit()
         if post == "vice-head-girl":
-            new_vote = ViceHeadGirl(name=name, vote_choice=request.form.get('candidate_select'))
+            new_vote = ViceHeadGirl(name=name, vote_choice=request.form.get('candidate_select'), grade=grade)
             db.session.add(new_vote)
             db.session.commit()
         if post == "sports-captain":
-            new_vote = SportsCaptain(name=name, vote_choice=request.form.get('candidate_select'))
+            new_vote = SportsCaptain(name=name, vote_choice=request.form.get('candidate_select'), grade=grade)
             db.session.add(new_vote)
             db.session.commit()
         if post == "vice-sports-captain":
-            new_vote = ViceSportsCaptain(name=name, vote_choice=request.form.get('candidate_select'))
+            new_vote = ViceSportsCaptain(name=name, vote_choice=request.form.get('candidate_select'), grade=grade)
             db.session.add(new_vote)
             db.session.commit()
         if post == "cultural-head":
-            new_vote = CulturalHead(name=name, vote_choice=request.form.get('candidate_select'))
+            new_vote = CulturalHead(name=name, vote_choice=request.form.get('candidate_select'), grade=grade)
             db.session.add(new_vote)
             db.session.commit()
         if post == "vice-cultural-head":
-            new_vote = ViceCulturalHead(name=name, vote_choice=request.form.get('candidate_select'))
+            new_vote = ViceCulturalHead(name=name, vote_choice=request.form.get('candidate_select'), grade=grade)
             db.session.add(new_vote)
             db.session.commit()
         if post == "house-captain-spartans":
-            new_vote = HouseCaptainSpartans(name=name, vote_choice=request.form.get('candidate_select'))
+            new_vote = HouseCaptainSpartans(name=name, vote_choice=request.form.get('candidate_select'), grade=grade)
             db.session.add(new_vote)
             db.session.commit()
         if post == "vice-house-captain-spartans":
-            new_vote = ViceHouseCaptainSpartans(name=name, vote_choice=request.form.get('candidate_select'))
+            new_vote = ViceHouseCaptainSpartans(name=name, vote_choice=request.form.get('candidate_select'), grade=grade)
             db.session.add(new_vote)
             db.session.commit()
         if post == "house-captain-samurais":
-            new_vote = HouseCaptainSamurais(name=name, vote_choice=request.form.get('candidate_select'))
+            new_vote = HouseCaptainSamurais(name=name, vote_choice=request.form.get('candidate_select'), grade=grade)
             db.session.add(new_vote)
             db.session.commit()
         if post == "vice-house-captain-samurais":
-            new_vote = ViceHouseCaptainSamurais(name=name, vote_choice=request.form.get('candidate_select'))
+            new_vote = ViceHouseCaptainSamurais(name=name, vote_choice=request.form.get('candidate_select'), grade=grade)
             db.session.add(new_vote)
             db.session.commit()
         if post == "house-captain-knights":
-            new_vote = HouseCaptainKnights(name=name, vote_choice=request.form.get('candidate_select'))
+            new_vote = HouseCaptainKnights(name=name, vote_choice=request.form.get('candidate_select'), grade=grade)
             db.session.add(new_vote)
             db.session.commit()
         if post == "vice-house-captain-knights":
-            new_vote = ViceHouseCaptainKnights(name=name, vote_choice=request.form.get('candidate_select'))
+            new_vote = ViceHouseCaptainKnights(name=name, vote_choice=request.form.get('candidate_select'), grade=grade)
             db.session.add(new_vote)
             db.session.commit()
         if post == "house-captain-trojans":
-            new_vote = HouseCaptainTrojans(name=name, vote_choice=request.form.get('candidate_select'))
+            new_vote = HouseCaptainTrojans(name=name, vote_choice=request.form.get('candidate_select'), grade=grade)
             db.session.add(new_vote)
             db.session.commit()
         if post == "vice-house-captain-trojans":
-            new_vote = ViceHouseCaptainTrojans(name=name, vote_choice=request.form.get('candidate_select'))
+            new_vote = ViceHouseCaptainTrojans(name=name, vote_choice=request.form.get('candidate_select'), grade=grade)
             db.session.add(new_vote)
             db.session.commit()
 
@@ -150,7 +160,7 @@ def vote(post):
             return redirect(url_for('views.thankyou'))
         else:
             print(POSTS[(POSTS.index(post.replace('-', '_')) + 1)].replace('_', '-'))
-            return redirect('/voting/' + POSTS[(POSTS.index(post.replace('-', '_')) + 1)].replace('_', '-') + '?name=' + name)
+            return redirect('/voting/' + POSTS[(POSTS.index(post.replace('-', '_')) + 1)].replace('_', '-') + '?name=' + name + '&grade=' + grade)
 
     data = CANDIDATES_POSTS[post.replace('-', '_')]
 

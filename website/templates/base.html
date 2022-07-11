@@ -28,6 +28,9 @@
             Student Council Voting System 2022
           </h1>
         </div>
+            {% if current_user.name == "adminacc" %}
+                <a href="/admin/head-boy">Admin Panel</a>
+            {% endif %}
       </div>
     </nav>
 

@@ -1,23 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Admin Panel</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-</head>
-<body>
-    <table class="table table-dark table-sm">
-        <tbody>
-            {% for post in keys %}
+    <head>
+        <meta charset="UTF-8">
+        <title>Admin Panel</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">BWS Voting Admin Panel</a>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="/admin/head-boy">Head Boy</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="/admin/head-girl">Head Girl</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="/admin/vice-head-boy">Vice Head Boy</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="/admin/vice-head-girl">Vice Head Girl</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="/admin/sports-captain">Sports Captain</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="/admin/vice-sports-captain">Vice Sports Captain</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="/admin/cultural-head">Cultural Head</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="/admin/vice-cultural-head">Vice Cultural Head</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" aria-labelledby="navbarDropdown" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">House Captain</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="/admin/house-captain-spartans">Spartans</a></li>
+                                <li><a class="dropdown-item" href="/admin/house-captain-knights">Knights</a></li>
+                                <li><a class="dropdown-item" href="/admin/house-captain-samurais">Samurais</a></li>
+                                <li><a class="dropdown-item" href="/admin/house-captain-trojans">Trojans</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" aria-labelledby="navbarDropdown" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Vice House Captain</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="/admin/vice-house-captain-spartns">Spartans</a></li>
+                                <li><a class="dropdown-item" href="/admin/vice-house-captain-knights">Knights</a></li>
+                                <li><a class="dropdown-item" href="/admin/vice-house-captain-samurais">Samurais</a></li>
+                                <li><a class="dropdown-item" href="/admin/vice-house-captain-trojans">Trojans</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <h3 style="margin: 30px auto 10px; text-align: center">{{ post_name }} Results</h3>
+
+        <table class="table table-dark table-striped" style="width: 50vw; margin: 0 auto 50px;">
+            <thead>
                 <tr>
-                    <th scope="row">{{ post }}</th>
-                    {% for candidate in data[post].keys() %}
-                        <td>{{ candidate }} - {{ data[post][candidate] }}</td>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Grade</th>
+                    <th scope="col">Vote Choice</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for resultnum in range %}
+                    <tr>
+                        <th scope="row">{{ resultnum + 1 }}</th>
+                        <td>{{ all_votes[resultnum][0] }}</td>
+                        <td>{{ all_votes[resultnum][1] }}</td>
+                        <td>{{ all_votes[resultnum][2] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <table class="table table-dark table-striped" style="width: 50vw; margin: 0 auto;">
+            <thead>
+                <tr>
+                    {% for c in candidate_scores.keys() %}
+                        <th scope="col">{{ c }}</th>
                     {% endfor %}
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</body>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for v in candidate_scores.keys() %}
+                        <td>{{ candidate_scores[v] }} Vote(s)</td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+
+
+    </body>
 </html>
