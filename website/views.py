@@ -86,9 +86,10 @@ def home():
 @views.route('/voting/<post>', methods=['GET', 'POST'])
 @login_required
 def vote(post):
+    name = request.args.get('name').title()
+    grade = request.args.get('grade')
+
     if request.method == "POST":
-        name = request.args.get('name')
-        grade = request.args.get('grade')
 
         if post == "head-boy":
             new_vote = HeadBoy(name=name, vote_choice=request.form.get('candidate_select'), grade=grade)
@@ -163,6 +164,8 @@ def vote(post):
             return redirect('/voting/' + POSTS[(POSTS.index(post.replace('-', '_')) + 1)].replace('_', '-') + '?name=' + name + '&grade=' + grade)
 
     data = CANDIDATES_POSTS[post.replace('-', '_')]
+    if name in data:
+        data.pop(data.index(name))
 
     post_name = post.replace('-', " ").title()
 
