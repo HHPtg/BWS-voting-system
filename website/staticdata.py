@@ -21,7 +21,7 @@ CANDIDATES = ["Hanif Hasan Patel", "Aarush Verma", "Diya Mahajan", "Sadhvi Kumar
               "Saanvi Trivedi", "Amaira Achwa", "Kyle Daniel", "Siddhant Dey", "Rida Shaikh", "Arjan Singh",
               "Divisha Bahl", "Salil Mehta", "Aayushi Mishra", "Sameeha Roowalla", "Maanas Lohar", "Yahya Akil Sayed",
               "Rishab Sharma", "Lavaniya Sharma", "Abheek Kapsime", "Dhruv Lagad", "Hussain Ali", "Vivaan Bhaskaran",
-              "Marvellous Olowo", "Murtuza", "Jia Varyani", "Rida Khan", "Zayan Firoz Kassim", "Mira", "Jas Varyani", "Alyssa Fernandes", "Hussain Harneswala"]
+              "Marvellous Olowo", "Murtuza Qutbi", "Jia Varyani", "Rida Khan", "Zayan Firoz Kassim", "Mira", "Jas Varyani", "Alyssa Fernandes", "Hussain Harneswala"]
 
 CANDIDATES_POSTS = {
     "head_boy": ["Hanif Hasan Patel", "Aarush Verma"],
@@ -36,7 +36,7 @@ CANDIDATES_POSTS = {
     "house_captain_samurais": ["Lavaniya Sharma", "Abheek Kapsime"],
     "house_captain_trojans": ["Dhruv Lagad", "Hussain Ali"],
     "house_captain_knights": ["Vivaan Bhaskaran", "Marvellous Olowo"],
-    "vice_house_captain_spartans": ["Murtuza", "Jia Varyani"],
+    "vice_house_captain_spartans": ["Murtuza Qutbi", "Jia Varyani"],
     "vice_house_captain_samurais": ["Rida Khan", "Alyssa Fernandes"],
     "vice_house_captain_trojans": ["Zayan Firoz Kassim"],
     "vice_house_captain_knights": ["Mira", "Jas Varyani", "Hussain Harneswala"]
